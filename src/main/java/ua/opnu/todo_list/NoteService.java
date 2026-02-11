@@ -1,16 +1,40 @@
-package ua.opnu.todo_list;
+package ua.opnu.todo_list; // Обов'язково
 
+import org.springframework.stereotype.Service; // Імпорт для @Service
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random; // Імпорт для Random
+import java.util.concurrent.ConcurrentHashMap;
 
-public interface NoteService {
+@Service // Позначає клас як сервіс для Spring
+public class NoteService {
+    private final Map<Long, Note> notes = new ConcurrentHashMap<>();
+    private final Random random = new Random();
 
-    List<Note> listAll();
+    public List<Note> listAll() {
+        return new ArrayList<>(notes.values());
+    }
 
-    Note add(Note note);
+    public void add(Note note) {
+        // Використовуємо setId, який згенерує Lombok у класі Note
+        long id = Math.abs(random.nextLong(1000));
+        note.setId(id);
+        notes.put(id, note);
+    }
 
-    void deleteById(long id);
+    public void deleteById(long id) {
+        notes.remove(id);
+    }
 
-    void update(Note note);
+    public void update(Note note) {
+        // Використовуємо getId з Lombok
+        if (notes.containsKey(note.getId())) {
+            notes.put(note.getId(), note);
+        }
+    }
 
-    Note getById(long id);
+    public Note getById(long id) {
+        return notes.get(id);
+    }
 }

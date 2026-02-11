@@ -1,16 +1,34 @@
 package ua.opnu.todo_list;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface NoteService {
+@Service
+@RequiredArgsConstructor // Lombok створить конструктор для noteRepository
+public class NoteService {
+    private final NoteRepository noteRepository;
 
-    List<Note> listAll();
+    public List<Note> listAll() {
+        return noteRepository.findAll();
+    }
 
-    Note add(Note note);
+    public Note add(Note note) {
+        return noteRepository.save(note);
+    }
 
-    void deleteById(long id);
+    public void deleteById(long id) {
+        noteRepository.deleteById(id);
+    }
 
-    void update(Note note);
+    public void update(Note note) {
+        if (noteRepository.existsById(note.getId())) {
+            noteRepository.save(note);
+        }
+    }
 
-    Note getById(long id);
+    public Note getById(long id) {
+        return noteRepository.findById(id).orElseThrow();
+    }
 }

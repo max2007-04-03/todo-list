@@ -1,4 +1,4 @@
-package ua.opnu.todo_list;
+package ua.opnu.todo_list.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,13 +9,11 @@ import lombok.Data;
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private String content;
-
-    public Note() {}
 }

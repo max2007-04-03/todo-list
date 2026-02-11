@@ -1,8 +1,10 @@
-package ua.opnu.todo_list;
+package ua.opnu.todo_list.conroller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ua.opnu.todo_list.service.NoteService;
+import ua.opnu.todo_list.entity.Note;
 
 @Controller
 @RequestMapping("/note")
